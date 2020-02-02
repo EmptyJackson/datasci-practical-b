@@ -509,7 +509,7 @@ class SingleVisitRemover(BaseEstimator, TransformerMixin):
         return self
     
     def transform(self, X, y=None):
-        return X[X.duplicated(subset=['patient_nbr'])]
+        return X[X.duplicated(subset=['patient_nbr'], keep=False)]
 
 
 pipeline = Pipeline([
