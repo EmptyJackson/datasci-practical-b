@@ -501,6 +501,17 @@ class ReadmissionBinarizer(BaseEstimator, TransformerMixin):
         return X
 
 
+class SingleVisitRemover(BaseEstimator, TransformerMixin):
+    def __init__(self):
+        pass
+
+    def fit(self, X, y=None):
+        return self
+    
+    def transform(self, X, y=None):
+        return X[X.duplicated(subset=['patient_nbr'])]
+
+
 pipeline = Pipeline([
     ('copy data', CopyData()),
     ('unhelpful attrs', UnhelpfulAttributeRemover()),
@@ -527,7 +538,8 @@ pipeline = Pipeline([
     ('A1C impute', KNNImputer('A1Cresult', nan_val='None')),
     ('A1C encode', A1CEncoder(drop=False, include_missing=False, drop_norm=True)),
     #('diag/spec PCA', DiagSpecPCA(k=13)),
-    #('scaler', StandardScaler())
+    #('scaler', StandardScaler()),
+    ('single visit', SingleVisitRemover())
 ],
     verbose=False)
 
@@ -540,4 +552,4 @@ def main():
 
 if __name__ == '__main__':
     x = main()
-    print(x.head())
+    print(x)
