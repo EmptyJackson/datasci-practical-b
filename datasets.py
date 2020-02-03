@@ -1,6 +1,7 @@
 import numpy as np
 
 def get_sequence_dataset(data):
+    data = data.copy()
     patient_seqs = []
     outcome_seqs = []
     for patient_num in data['patient_nbr'].unique():
