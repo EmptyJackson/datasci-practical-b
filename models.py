@@ -7,5 +7,6 @@ def get_simple_regression(num_features=102, multitask=False):
     x = keras.layers.ReLU()(x)
     x = keras.layers.Dense(8)(x)
     x = keras.layers.ReLU()(x)
-    outputs = keras.layers.Dense(out_dims)(x)
+    x = keras.layers.Dense(out_dims)(x)
+    outputs = keras.layers.ReLU()(x)
     return keras.models.Model(inputs=inputs, outputs=outputs)
