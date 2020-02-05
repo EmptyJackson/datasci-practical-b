@@ -1,4 +1,6 @@
+import tensorflow as tf
 import keras.backend as K
+
 from tensorflow.keras.losses import poisson
 
 def tih_poisson(y_true, y_pred):
